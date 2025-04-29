@@ -1,0 +1,37 @@
+networks:
+  piwigo:
+    external: false
+
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - '8080:80'
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro -d nginx
+    networks:
+      - piwigo
+    depends_on:
+      - db
+      - php-fpm
+  php-fpm:
+    build: php-image/
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - db
+    networks:
+      - piwigo
+  db:
+    image: mysql
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=piwigodb_password
+      - MYSQL_USER=piwigodb_user
+      - MYSQL_PASSWORD=piwigodb_user_password
+      - MYSQL_DATABASE=piwigodb
+    networks:
+      - piwigo
+    volumes:
+      - ./mysql:/var/lib/mysql
