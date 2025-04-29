@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<?php require_once('mysql_test.php');?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -23,7 +22,10 @@
             phpinfo();
         }
         if (isset($_POST["mysql"])) {
-            mysql_test_main();
+            $con = new mysqli("db","piwigodb_user","piwigodb_user_password","piwigodb");
+            echo $con->client_info
+            ."\n".$con->host_info
+            ."\n".$con->server_info;
         }
     ?>
 </body>
