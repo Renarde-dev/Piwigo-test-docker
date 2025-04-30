@@ -8,15 +8,21 @@
 <style>
     body {display: block; color: #222; font-family: sans-serif;}
     body > h1 { text-align: center; font-size: 150%;}
-    body > form {display: flex; justify-content: center;}
-    body > form > input {margin: 2vw; padding: 15px;}
+    body > .info-div {display: flex; justify-content: center;}
+    body > .info-div > form > input {margin: 2vw; padding: 15px;}
+    body > .info-div > a > button {margin: 2vw; padding: 15px;}
 </style>
 <body>
     <h1>PHP Test menu</h1>
-    <form method="post">
-        <input type="submit" name="phpinfo" value="phpinfo">
-        <input type="submit" name="mysql" value="mysql">
-    </form>
+    <div class="info-div">
+        <form method="post">
+            <input type="submit" name="phpinfo" value="phpinfo">
+            <input type="submit" name="mysql" value="mysql">
+        </form>
+        <a href="./Piwigo/piwigo-netinstall.php">
+            <button>Piwigo-Netinstall</button>
+        </a>
+    </div>
     <?php
         if (isset($_POST["phpinfo"])) {
             phpinfo();
