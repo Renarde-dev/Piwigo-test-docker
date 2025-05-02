@@ -13,9 +13,7 @@ RUN apk add --update --no-cache \
     imagemagick exiftool ffmpeg mediainfo ghostscript \
     # Reverse proxy
     nginx
-RUN docker-php-ext-enable mysqli gd imap zip bcmath
 RUN adduser -D -g 'www' www \
-    && mkdir /www \
     && chown -R www:www /var/lib/nginx \
-    && chown -R www:www /www
-    && rc-update add nginx default
+    && chown -R www:www /var/www/html
+CMD ["nginx","-g","daemon off;"]
