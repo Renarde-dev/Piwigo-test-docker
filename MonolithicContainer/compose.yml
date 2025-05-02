@@ -3,11 +3,8 @@ networks:
     external: false
 
 services:
-  piwigo:
+  piwigo-backend:
     build: ./
-    volumes: 
-      - ../src:/var/www/html
-      - ./nginx.conf:/etc/nginx/nginx.conf
     networks:
       - piwigo-network
     ports:
@@ -25,4 +22,4 @@ services:
     networks:
       - piwigo-network
     volumes:
-      - ../mysql:/var/lib/mysql # Data persistence
+      - ./mysql:/var/lib/mysql # Data persistence
