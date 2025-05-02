@@ -19,7 +19,10 @@
             <input type="submit" name="phpinfo" value="phpinfo">
             <input type="submit" name="mysql" value="mysql">
         </form>
-        <a href="./Piwigo/piwigo-netinstall.php">
+        <a href="./netinstall/piwigo-netinstall.php">
+            <button>Piwigo-Netinstall</button>
+        </a>
+        <a href="./piwigo-zip/piwigo-netinstall.php">
             <button>Piwigo-Netinstall</button>
         </a>
     </div>
