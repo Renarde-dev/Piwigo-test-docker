@@ -1,5 +1,10 @@
 # Docker PIWIGO Test :
 
+## Architeture
+
+- MySQL container
+- Alpine nginx + php-fpm
+
 Sources :
 
 https://github.com/TrafeX/docker-php-nginx
