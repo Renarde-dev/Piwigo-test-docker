@@ -11,17 +11,13 @@ services:
       - '8080:80' # Expose to port 8080
     depends_on:
       - piwigo-db
-    volumes:
-      - ./piwigo-data:/var/www/html/piwigo/ # Data persistence
   piwigo-db:
     image: mysql # Maybe specify MySQL version
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=piwigodb_password
+      - MYSQL_RANDOM_ROOT_PASSWORD=true 
       - MYSQL_USER=piwigodb_user
       - MYSQL_PASSWORD=piwigodb_user_password
       - MYSQL_DATABASE=piwigodb
     networks:
       - piwigo-network
-    volumes:
-      - ./piwigo-db:/var/lib/mysql # Data persistence
