@@ -11,6 +11,8 @@ services:
       - '8080:80' # Expose to port 8080
     depends_on:
       - piwigo-db
+    volumes:
+      - ./piwigo-data:/var/www/html/piwigo/ # Data persistence
   piwigo-db:
     image: mysql # Maybe specify MySQL version
     restart: always
@@ -22,4 +24,4 @@ services:
     networks:
       - piwigo-network
     volumes:
-      - ./mysql:/var/lib/mysql # Data persistence
+      - ./piwigo-db:/var/lib/mysql # Data persistence
