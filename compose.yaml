@@ -11,14 +11,20 @@ services:
       - '8080:80' # Expose to port 8080
     depends_on:
       - piwigo-db
+    volumes:
+      - ./piwigo-data/_data:/var/www/html/piwigo/_data
+      - ./piwigo-data/upload:/var/www/html/piwigo/upload
+      - ./piwigo-data/galleries:/var/www/html/piwigo/galleries
+      - ./piwigo-data/config:/var/www/html/piwigo/local/config
   piwigo-db:
     image: mysql:lts
     restart: always
     environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=true
       - MYSQL_USER=piwigodb_user
       - MYSQL_PASSWORD=piwigodb_user_password
       - MYSQL_DATABASE=piwigodb
     networks:
       - piwigo-network
     volumes:
-      - ./piwigo-data/piwigo-db:/var/lib/mysql # Data persistence
+      - ./piwigo-data/mysql:/var/lib/mysql
