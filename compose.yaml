@@ -12,12 +12,13 @@ services:
     depends_on:
       - piwigo-db
   piwigo-db:
-    image: mysql # Maybe specify MySQL version
+    image: mysql:lts
     restart: always
     environment:
-      - MYSQL_RANDOM_ROOT_PASSWORD=true 
       - MYSQL_USER=piwigodb_user
       - MYSQL_PASSWORD=piwigodb_user_password
       - MYSQL_DATABASE=piwigodb
     networks:
       - piwigo-network
+    volumes:
+      - ./piwigo-data/piwigo-db:/var/lib/mysql # Data persistence
