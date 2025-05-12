@@ -4,7 +4,7 @@ networks:
 
 services:
   piwigo-backend:
-    build: ./
+    image: docker.io/rushlana/piwigo-test:latest
     networks:
       - piwigo-network
     ports:

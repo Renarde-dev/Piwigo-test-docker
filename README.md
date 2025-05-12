@@ -51,8 +51,6 @@ You can replace the mysql container by any other mysql database that is reachabl
 services:
   piwigo-backend:
     build: ./
-    networks:
-      - piwigo-network
     ports:
       - '8080:80'
     volumes:

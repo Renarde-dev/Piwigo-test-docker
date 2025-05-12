@@ -79,4 +79,6 @@ RUN curl -o /tmp/piwigo.zip https://piwigo.org/download/dlcounter.php?code=lates
 RUN unzip /tmp/piwigo.zip -d /var/www/html/
 RUN chown -R nginx:nginx /var/www/html/
 
+EXPOSE 80
+
 CMD ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
