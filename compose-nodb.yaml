@@ -1,0 +1,10 @@
+services:
+  piwigo-backend:
+    image: docker.io/rushlana/piwigo-test:latest
+    ports:
+      - '${piwigo_port}:80'
+    volumes:
+      - ./piwigo-data/_data:/var/www/html/piwigo/_data
+      - ./piwigo-data/upload:/var/www/html/piwigo/upload
+      - ./piwigo-data/galleries:/var/www/html/piwigo/galleries
+      - ./piwigo-data/config:/var/www/html/piwigo/local/config

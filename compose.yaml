@@ -8,7 +8,7 @@ services:
     networks:
       - piwigo-network
     ports:
-      - '8080:80' # Expose to port 8080
+      - '${piwigo_port}:80'
     depends_on:
       - piwigo-db
     volumes:
@@ -17,13 +17,14 @@ services:
       - ./piwigo-data/galleries:/var/www/html/piwigo/galleries
       - ./piwigo-data/config:/var/www/html/piwigo/local/config
   piwigo-db:
-    image: mysql:lts
+    image: docker.io/mariadb:lts
     restart: always
     environment:
-      - MYSQL_RANDOM_ROOT_PASSWORD=true
-      - MYSQL_USER=piwigodb_user
-      - MYSQL_PASSWORD=piwigodb_user_password
-      - MYSQL_DATABASE=piwigodb
+      - MARIADB_RANDOM_ROOT_PASSWORD=true
+      # Defined in .env
+      - MARIADB_USER=${db_user}
+      - MARIADB_PASSWORD=${db_user_password}
+      - MARIADB_DATABASE=${db_name}
     networks:
       - piwigo-network
     volumes:
