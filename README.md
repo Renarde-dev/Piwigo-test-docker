@@ -1,38 +1,32 @@
 # Docker PIWIGO Test :
 
-## Architeture
-
-- MySQL container
-- Alpine nginx + php-fpm
+A container to deploy piwigo
 
 ## Usage
 
-Edit `compose.yml` and change the MYSQL environment variables :
+### Setup
 
-```yaml
-environment:
-      - MYSQL_USER=<USERNAME>
-      - MYSQL_PASSWORD=<USER_PASSWORD>
-      - MYSQL_DATABASE=<DATABASE>
-```
-You may also want to change the exposed port, this guide assume `8080`.
+Create a folder and copy `compose.yaml`, then create a `.env` file :  
 
 
-Starting the container :
 ```sh
-docker compose build
-docker compose up -d
+db_user=            # Database user ex : PiwigoDB_user
+db_user_password=   # Database user password ex: MyPasswd
+db_name=            # Database name : PiwigoDB
+piwigo_port=        # Port exposed ex : 8080
 ```
 
-Go to `my-server:8080`,  
-if a warning about permission issues appear you can run :
-```sh 
-sudo chmod -R 777 ./piwigo-data/{config/,_data/,galleries/,upload/}
-```
+Start the container with `docker compose up -d`  
+Go to `my-server:8080` and complete the installation.
 
-Fill out the form using `piwigo-db:3306` as database url.
+> if a warning about permission issues appear you can run : 
+>```sh
+>sudo chmod 777 -R ./piwigo-data/{config/,_data/,galleries/,upload/}
+>```
 
-## Updating 
+Fill out the form using `piwigo-db:3306` as database url and the info you filled out in the `.env` file.
+
+### Updating 
 
 ```sh
 docker compose down
@@ -40,22 +34,14 @@ docker compose pull
 docker compose up -d
 ```
 
-## Advanced options 
+### Advanced option
 
-### Removing the MySQL container
+if you want to use an existing MySQL/MariaDB database you already setup use the `compose-nodb.yaml` file, rename it to `compose.yaml`  
+You only have to specify the exposed port (`piwigo_port`) in `.env`.
 
-You can replace the mysql container by any other mysql database that is reachable by the host 
+if preffer using a `mysql` container edit `compose.yaml` and replace mariadb by mysql (case sensitive).
 
-```yaml
-# compose.yaml
-services:
-  piwigo-backend:
-    build: ./
-    ports:
-      - '8080:80'
-    volumes:
-      - ./piwigo-data/_data:/var/www/html/piwigo/_data
-      - ./piwigo-data/upload:/var/www/html/piwigo/upload
-      - ./piwigo-data/galleries:/var/www/html/piwigo/galleries
-      - ./piwigo-data/config:/var/www/html/piwigo/local/config
-```
+## Architeture
+
+- MariaDB container, data is stored `/piwigo-data/mysql`
+- Alpine nginx + php-fpm
