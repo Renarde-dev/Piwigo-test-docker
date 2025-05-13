@@ -1,10 +1,11 @@
-FROM nginx:stable-alpine
-# Set PHP Version (No dot)
+FROM docker.io/nginx:stable-alpine
+# Set Piwigo and PHP Version
 ARG PHP_VERSION="82"
+ARG PIWIGO_VERSION="latest" 
 
 RUN apk add --update --no-cache \
-    # PHP dependencies
-    php${PHP_VERSION} \
+	# PHP dependencies
+	php${PHP_VERSION} \
 	php${PHP_VERSION}-apcu \
 	php${PHP_VERSION}-bcmath \
 	php${PHP_VERSION}-bz2 \
@@ -15,7 +16,7 @@ RUN apk add --update --no-cache \
 	php${PHP_VERSION}-exif \
 	php${PHP_VERSION}-ffi \
 	php${PHP_VERSION}-fileinfo \
-    php${PHP_VERSION}-fpm \
+	php${PHP_VERSION}-fpm \
 	php${PHP_VERSION}-ftp \
 	php${PHP_VERSION}-gd \
 	php${PHP_VERSION}-gettext \
@@ -23,9 +24,9 @@ RUN apk add --update --no-cache \
 	php${PHP_VERSION}-iconv \
 	php${PHP_VERSION}-imap \
 	php${PHP_VERSION}-json \
-    php${PHP_VERSION}-mbstring \
+	php${PHP_VERSION}-mbstring \
 	php${PHP_VERSION}-mysqli \
-    php${PHP_VERSION}-mysqlnd \
+	php${PHP_VERSION}-mysqlnd \
 	php${PHP_VERSION}-odbc \
 	php${PHP_VERSION}-openssl \
 	php${PHP_VERSION}-pcntl \
@@ -52,10 +53,22 @@ RUN apk add --update --no-cache \
 	php${PHP_VERSION}-xmlwriter \
 	php${PHP_VERSION}-xsl \
 	php${PHP_VERSION}-zip \
-    # External dependencies
-    imagemagick exiftool ffmpeg mediainfo ghostscript \
-    # Supervisor to run PHP-FPM and NGINX
-    supervisor
+	php${PHP_VERSION}-pecl-imagick \
+	# External dependencies
+	exiftool ffmpeg mediainfo ghostscript \
+	# Imagemagick
+	imagemagick \
+	imagemagick-heic \
+	imagemagick-jpeg \
+	imagemagick-jxl \
+	imagemagick-pango \
+	imagemagick-pdf \
+	imagemagick-raw \
+	imagemagick-svg \
+	imagemagick-tiff \
+	imagemagick-webp \
+	# Supervisor to run PHP-FPM and NGINX
+	supervisor
 
 # Configure PHP-FPM (set user to nginx)
 RUN sed -i "s|;listen.owner\s*=\s*nobody|listen.owner = nginx|g" /etc/php${PHP_VERSION}/php-fpm.d/www.conf \
@@ -75,7 +88,7 @@ RUN sed -i "s/PHP-VERSION/${PHP_VERSION}/" /etc/supervisord.conf
 VOLUME ["/var/www/html/piwigo/_data","/var/www/html/piwigo/upload/","/var/www/html/piwigo/galleries/"]
 
 # Fetch and extract piwigo
-RUN curl -o /tmp/piwigo.zip https://piwigo.org/download/dlcounter.php?code=latest
+RUN curl -o /tmp/piwigo.zip https://piwigo.org/download/dlcounter.php?code=${PIWIGO_VERSION}
 RUN unzip /tmp/piwigo.zip -d /var/www/html/
 RUN chown -R nginx:nginx /var/www/html/
 
