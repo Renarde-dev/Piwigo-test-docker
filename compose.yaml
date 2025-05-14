@@ -4,7 +4,8 @@ networks:
 
 services:
   piwigo-backend:
-    image: docker.io/rushlana/piwigo-test:latest
+    # image: docker.io/library/rushlana/piwigo-test:latest
+    build: .
     networks:
       - piwigo-network
     ports:
@@ -17,7 +18,7 @@ services:
       - ./piwigo-data/galleries:/var/www/html/piwigo/galleries
       - ./piwigo-data/config:/var/www/html/piwigo/local/config
   piwigo-db:
-    image: docker.io/mariadb:lts
+    image: docker.io/library/mariadb:lts
     restart: always
     environment:
       - MARIADB_RANDOM_ROOT_PASSWORD=true

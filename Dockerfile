@@ -1,7 +1,7 @@
 FROM docker.io/nginx:stable-alpine
 # Set Piwigo and PHP Version
-ARG PHP_VERSION="82"
-ARG PIWIGO_VERSION="latest" 
+ARG PHP_VERSION="83"
+ARG PIWIGO_VERSION="15.5.0" 
 
 RUN apk add --update --no-cache \
 	# PHP dependencies
@@ -76,22 +76,21 @@ RUN sed -i "s|;listen.owner\s*=\s*nobody|listen.owner = nginx|g" /etc/php${PHP_V
 && sed -i "s|user\s*=\s*nobody|user = nginx|g" /etc/php${PHP_VERSION}/php-fpm.d/www.conf \
 && sed -i "s|group\s*=\s*nobody|group = nginx|g" /etc/php${PHP_VERSION}/php-fpm.d/www.conf
 
-# Configure NGINX
-COPY ./config/nginx.conf /etc/nginx/nginx.conf
-RUN mkdir -p /var/www/html/
-
 # Configure and set the php version of supervisor
 COPY ./config/supervisord.conf /etc/supervisord.conf
 RUN sed -i "s/PHP-VERSION/${PHP_VERSION}/" /etc/supervisord.conf
 
-# Declare volume for persistent data
-VOLUME ["/var/www/html/piwigo/_data","/var/www/html/piwigo/upload/","/var/www/html/piwigo/galleries/"]
-
-# Fetch and extract piwigo
+# Configure NGINX, fetch and extract piwigo
+COPY ./config/nginx.conf /etc/nginx/nginx.conf
+RUN mkdir -p /var/www/html/
+RUN chown -R nginx:nginx /var/www/html/
+USER nginx
 RUN curl -o /tmp/piwigo.zip https://piwigo.org/download/dlcounter.php?code=${PIWIGO_VERSION}
 RUN unzip /tmp/piwigo.zip -d /var/www/html/
-RUN chown -R nginx:nginx /var/www/html/
 
+# Bind port 80
 EXPOSE 80
 
+# Copy script and start supervisord
+USER root
 CMD ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
