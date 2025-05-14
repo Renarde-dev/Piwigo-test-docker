@@ -55,7 +55,7 @@ RUN apk add --update --no-cache \
 	php${PHP_VERSION}-zip \
 	php${PHP_VERSION}-pecl-imagick \
 	# External dependencies
-	exiftool ffmpeg mediainfo ghostscript \
+	exiftool ffmpeg mediainfo ghostscript findutils \
 	# Imagemagick
 	imagemagick \
 	imagemagick-heic \
@@ -93,4 +93,5 @@ EXPOSE 80
 
 # Copy script and start supervisord
 USER root
-CMD ["/usr/bin/supervisord","-c","/etc/supervisord.conf"]
+COPY --chmod=0755 "./config/entrypoint.sh" "/usr/local/bin/entrypoint.sh"
+ENTRYPOINT ["entrypoint.sh"]
