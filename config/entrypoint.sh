@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Ensure directory are writable (see https://github.com/MariaDB/mariadb-docker/blob/master/docker-entrypoint.sh)
+# Ensure directories are writable (see https://github.com/MariaDB/mariadb-docker/blob/master/docker-entrypoint.sh)
 user="$(id -u)"
 if [ "$user" = "0" ]; then # Only chown if root to avoid errors
     # iterate through every volume

@@ -23,8 +23,8 @@ db_name=piwigodb
 piwigo_port=8080
 ```
 
-Start the container with `docker compose up -d`  
-Go to `my-server:8080` and complete the installation.  
+Start the container with `docker compose up -d`
+Go to `my-server-ip:8080` (configure your reverse proxy if needed) and complete the installation.  
 Fill out the database form using the following values :
 ```yaml
 Database configuration:
@@ -47,13 +47,22 @@ docker compose up -d
 
 ### Advanced option
 
-if you want to use an existing MySQL/MariaDB database you already setup, rename `compose-nodb.yaml` as `compose.yaml`
+if you preffer using a `mysql` container edit `compose.yaml` and replace mariadb by mysql (case sensitive).
 
-if preffer using a `mysql` container edit `compose.yaml` and replace mariadb by mysql (case sensitive).
+if you want to use an existing MySQL/MariaDB database you already setup, use `compose-nodb.yaml` and rename it `compose.yaml`.
+You can either create `.env` with `piwigo_port=` or manually edit the compose file to change the exposed port.
 
 ## Architeture
 
-- MariaDB container, data is stored `/piwigo-data/mysql`
-- Alpine nginx + php-fpm
+Two container :
+- Alpine nginx with php-fpm
+- MariaDB
 
 PHP modules are installed with alpine natives packages, php-fpm is running with the same user as nginx.
+
+Container network trafic is internal in the `piwigo-network` bridge.
+
+All persistent data is stored in `./piwigo-data/`
+
+- `_data`,`upload`,`galleries`,`local/config` map to piwigo directories of the same name
+- `mysql` is the database directory
