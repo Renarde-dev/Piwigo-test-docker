@@ -53,7 +53,6 @@ RUN apk add --update --no-cache \
 	php${PHP_VERSION}-xmlwriter \
 	php${PHP_VERSION}-xsl \
 	php${PHP_VERSION}-zip \
-	php${PHP_VERSION}-pecl-imagick \
 	# External dependencies
 	exiftool ffmpeg mediainfo ghostscript findutils \
 	# Imagemagick

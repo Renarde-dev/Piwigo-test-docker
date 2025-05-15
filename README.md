@@ -47,7 +47,7 @@ docker compose up -d
 
 ### Advanced option
 
-if you want to use an existing MySQL/MariaDB database you already setup use `compose-nodb.yaml` and only configure `piwigo_port=` in `.env`
+if you want to use an existing MySQL/MariaDB database you already setup, rename `compose-nodb.yaml` as `compose.yaml`
 
 if preffer using a `mysql` container edit `compose.yaml` and replace mariadb by mysql (case sensitive).
 
