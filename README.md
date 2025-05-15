@@ -6,7 +6,7 @@ An alpine based container to easily deploy piwigo.
 
 ### Setup
 
-Create a folder named `Piwigo` in `$HOME` and copy `compose.yaml` from this repository, then create a `.env` file :
+Create a folder named `Piwigo` in `$HOME` and copy `compose.yaml` from this repository, then create a `.env` file
 
 ```
 Piwigo
@@ -23,7 +23,7 @@ db_name=piwigodb
 piwigo_port=8080
 ```
 
-Start the container with `docker compose up -d`
+Start the container with `docker compose up -d`  
 Go to `my-server-ip:8080` (configure your reverse proxy if needed) and complete the installation.  
 Fill out the database form using the following values :
 ```yaml
