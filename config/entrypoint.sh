@@ -10,5 +10,5 @@ if [ "$user" = "0" ]; then # Only chown if root to avoid errors
     done
 fi
 
-# Launch supervisord (php-fpm + nginx)
-/usr/bin/supervisord -c /etc/supervisord.conf
+# Log that the script has finished
+echo "Starting supervisord"
