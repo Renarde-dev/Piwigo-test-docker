@@ -45,12 +45,15 @@ docker compose pull
 docker compose up -d
 ```
 
-### Advanced option
+### Advanced options
 
 if you preffer using a `mysql` container edit `compose.yaml` and replace mariadb by mysql (case sensitive).
 
 if you want to use an existing MySQL/MariaDB database you already setup, use `compose-nodb.yaml` and rename it `compose.yaml`.
 You can either create `.env` with `piwigo_port=` or manually edit the compose file to change the exposed port.
+
+You can create a script at `./piwigo-data/scripts/user.sh` to run commands before nginx and php start.  
+eg: to install extra dependencies like pandoc `apk add --no-cache pandoc`, available package listed at [alpine pkg index](https://pkgs.alpinelinux.org/packages)
 
 ## Architeture
 
@@ -66,3 +69,4 @@ All persistent data is stored in `./piwigo-data/`
 
 - `_data`,`upload`,`galleries`,`local/config` map to piwigo directories of the same name
 - `mysql` is the database directory
+- `scripts` allow user to sideload dependencies and other files outside of piwigo

@@ -16,6 +16,7 @@ services:
       - ./piwigo-data/upload:/var/www/html/piwigo/upload
       - ./piwigo-data/galleries:/var/www/html/piwigo/galleries
       - ./piwigo-data/config:/var/www/html/piwigo/local/config
+      - ./piwigo-data/scripts:/usr/local/bin/scripts/
   piwigo-db:
     image: docker.io/library/mariadb:lts
     restart: always

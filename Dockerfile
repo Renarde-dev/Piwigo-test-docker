@@ -93,5 +93,5 @@ EXPOSE 80
 # Copy script and start supervisord
 USER root
 COPY --chmod=0755 "./config/entrypoint.sh" "/usr/local/bin/entrypoint.sh"
-ENTRYPOINT ["/bin/sh","-c"]
+ENTRYPOINT ["/bin/ash","-c"]
 CMD ["/usr/local/bin/entrypoint.sh;/usr/bin/supervisord -c /etc/supervisord.conf"]
