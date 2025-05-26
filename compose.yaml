@@ -13,6 +13,7 @@ services:
       - piwigo-db
     volumes:
       - ./piwigo-data/piwigo:/var/www/html/piwigo/
+      - ./piwigo-data/scripts:/usr/local/bin/scripts/
   piwigo-db:
     image: docker.io/library/mariadb:lts
     restart: always

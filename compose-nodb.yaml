@@ -5,3 +5,4 @@ services:
       - '${piwigo_port}:80'
     volumes:
       - ./piwigo-data:/var/www/html/piwigo/
+      - ./piwigo-data/scripts:/usr/local/bin/scripts/

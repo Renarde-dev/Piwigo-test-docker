@@ -65,8 +65,8 @@ PHP modules are installed with alpine natives packages, php-fpm is running with 
 
 Container network trafic is internal in the `piwigo-network` bridge.
 
-All persistent data is stored in `./piwigo-data/`
+All persistent data is stored in `./piwigo-data/` :
 
-- `_data`,`upload`,`galleries`,`local/config` map to piwigo directories of the same name
-- `mysql` is the database directory
+- `piwigo` piwigo files, when a new version is released, new files will be copied over
+- `mysql` database files from the mariaDB/mysql
 - `scripts` allow user to sideload dependencies and other files outside of piwigo
