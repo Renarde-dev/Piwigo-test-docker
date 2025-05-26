@@ -1,13 +1,15 @@
 #!/bin/sh
 
 # Ensure directories are writable (see https://github.com/MariaDB/mariadb-docker/blob/master/docker-entrypoint.sh)
-user="$(id -u)"
-if [ "$user" = "0" ]; then # Only chown if root
-    # iterate through every volume
-    for volume_folder in "_data" "upload" "galleries" "local/config"; do
-        # this will cause less disk access than `chown -R`
-        find "/var/www/html/piwigo/$volume_folder" \! -user nginx \( -exec chown nginx: '{}' + -o -true \)
-    done
+find "/var/www/html/piwigo/" \! -user nginx \( -exec chown nginx: '{}' + -o -true \)
+
+# Check if the version of piwigo in the volume folder is different from the source
+if ! diff /var/www/source/version /var/www/html/piwigo/version &> /dev/null; then
+    echo "Installing piwigo version $(cat /var/www/source/version)"
+    /bin/cp -arT /var/www/source/piwigo /var/www/html/piwigo/
+    /bin/cp -aT /var/www/source/version /var/www/html/piwigo/version
+else
+    echo "Current piwigo version $(cat /var/www/html/piwigo/version)"
 fi
 
 # Load user scripts if it exist

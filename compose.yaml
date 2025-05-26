@@ -12,11 +12,7 @@ services:
     depends_on:
       - piwigo-db
     volumes:
-      - ./piwigo-data/_data:/var/www/html/piwigo/_data
-      - ./piwigo-data/upload:/var/www/html/piwigo/upload
-      - ./piwigo-data/galleries:/var/www/html/piwigo/galleries
-      - ./piwigo-data/config:/var/www/html/piwigo/local/config
-      - ./piwigo-data/scripts:/usr/local/bin/scripts/
+      - ./piwigo-data/piwigo:/var/www/html/piwigo/
   piwigo-db:
     image: docker.io/library/mariadb:lts
     restart: always

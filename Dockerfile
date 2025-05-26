@@ -81,11 +81,12 @@ RUN sed -i "s/PHP-VERSION/${PHP_VERSION}/" /etc/supervisord.conf
 
 # Configure NGINX, fetch and extract piwigo
 COPY ./config/nginx.conf /etc/nginx/nginx.conf
-RUN mkdir -p /var/www/html/
-RUN chown -R nginx:nginx /var/www/html/
+RUN mkdir -p /var/www/html/piwigo /var/www/source/
+RUN chown nginx:nginx /var/www/html/ /var/www/source/
 USER nginx
 RUN curl -o /tmp/piwigo.zip https://piwigo.org/download/dlcounter.php?code=${PIWIGO_VERSION}
-RUN unzip /tmp/piwigo.zip -d /var/www/html/
+RUN unzip /tmp/piwigo.zip -d /var/www/source/
+RUN echo "${PIWIGO_VERSION}" > /var/www/source/version
 
 # Bind port 80
 EXPOSE 80

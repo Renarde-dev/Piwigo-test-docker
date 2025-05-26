@@ -4,7 +4,4 @@ services:
     ports:
       - '${piwigo_port}:80'
     volumes:
-      - ./piwigo-data/_data:/var/www/html/piwigo/_data
-      - ./piwigo-data/upload:/var/www/html/piwigo/upload
-      - ./piwigo-data/galleries:/var/www/html/piwigo/galleries
-      - ./piwigo-data/config:/var/www/html/piwigo/local/config
+      - ./piwigo-data:/var/www/html/piwigo/
