@@ -86,7 +86,7 @@ RUN chown nginx:nginx /var/www/html/ /var/www/source/
 USER nginx
 RUN curl -o /tmp/piwigo.zip https://piwigo.org/download/dlcounter.php?code=${PIWIGO_VERSION}
 RUN unzip /tmp/piwigo.zip -d /var/www/source/
-RUN echo "${PIWIGO_VERSION}" > /var/www/source/version
+RUN rm -rf /tmp/piwigo.zip
 
 # Bind port 80
 EXPOSE 80

@@ -4,12 +4,13 @@
 find "/var/www/html/piwigo/" \! -user nginx \( -exec chown nginx: '{}' + -o -true \)
 
 # Check if the version of piwigo in the volume folder is different from the source
-if ! diff /var/www/source/version /var/www/html/piwigo/version &> /dev/null; then
-    echo "Installing piwigo version $(cat /var/www/source/version)"
+SOURCE_VERSION=$(php -r "include '/var/www/source/piwigo/include/constants.php'; echo PHPWG_VERSION;" 2> /dev/null)
+VOLUME_VERSION=$(php -r "include '/var/www/html/piwigo/include/constants.php'; echo PHPWG_VERSION;" 2> /dev/null)
+if ! [ "$SOURCE_VERSION" = "$VOLUME_VERSION" ]; then
+    echo "Installing piwigo version $SOURCE_VERSION"
     /bin/cp -arT /var/www/source/piwigo /var/www/html/piwigo/
-    /bin/cp -aT /var/www/source/version /var/www/html/piwigo/version
 else
-    echo "Current piwigo version $(cat /var/www/html/piwigo/version)"
+    echo "Current piwigo version $VOLUME_VERSION"
 fi
 
 # Load user scripts if it exist
