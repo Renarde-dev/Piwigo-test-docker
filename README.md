@@ -1,6 +1,7 @@
 # Docker PIWIGO Test :
 
 An alpine based container to easily deploy piwigo.
+This container does **not** support subpaths, use a subdomain instead !
 
 ## Usage
 
