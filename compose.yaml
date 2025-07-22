@@ -3,16 +3,18 @@ networks:
     external: false
 
 services:
-  piwigo-backend:
-    image: docker.io/library/rushlana/piwigo-test:latest
+  piwigo:
+    build: .
+    # image: docker.io/library/rushlana/piwigo-test:latest
     networks:
       - piwigo-network
     ports:
-      - '${piwigo_port}:80'
+      # Defined in .env
+      - '${piwigo_port}:9000'
     depends_on:
       - piwigo-db
     volumes:
-      - ./piwigo-data/piwigo:/var/www/html/piwigo/
+      - ./piwigo-data/piwigo:/var/www/html/
       - ./piwigo-data/scripts:/usr/local/bin/scripts/
   piwigo-db:
     image: docker.io/library/mariadb:lts
