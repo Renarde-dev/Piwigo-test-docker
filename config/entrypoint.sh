@@ -19,8 +19,9 @@ if [ -e "/usr/local/bin/scripts/user.sh" ]; then
     chmod +x "/usr/local/bin/scripts/user.sh"
     /bin/ash -c "/usr/local/bin/scripts/user.sh"
 else
-    echo "No user script found, you can add one at ./piwigo-data/scripts/user.sh"
+    echo "No user script found; you can optionally add one in ./piwigo-data/scripts/user.sh"
 fi
 
 # Log that the script has finished
 echo "Starting supervisord"
+/usr/bin/supervisord -c /etc/supervisord.conf

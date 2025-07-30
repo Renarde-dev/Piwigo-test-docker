@@ -95,4 +95,4 @@ EXPOSE 80
 USER root
 COPY --chmod=0755 "./config/entrypoint.sh" "/usr/local/bin/entrypoint.sh"
 ENTRYPOINT ["/bin/ash","-c"]
-CMD ["/usr/local/bin/entrypoint.sh;/usr/bin/supervisord -c /etc/supervisord.conf"]
+CMD ["/usr/local/bin/entrypoint.sh"]
