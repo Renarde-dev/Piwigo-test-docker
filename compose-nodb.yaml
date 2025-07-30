@@ -1,8 +1,14 @@
+networks:
+  piwigo-network:
+    external: false
+
 services:
   piwigo-backend:
     image: docker.io/rushlana/piwigo-test:latest
+    networks:
+      - piwigo-network
     ports:
       - '${piwigo_port}:80'
     volumes:
-      - ./piwigo-data:/var/www/html/piwigo/
+      - ./piwigo-data/piwigo:/var/www/html/piwigo/
       - ./piwigo-data/scripts:/usr/local/bin/scripts/

@@ -20,9 +20,9 @@ services:
     environment:
       - MARIADB_RANDOM_ROOT_PASSWORD=true
       # Defined in .env
-      - MARIADB_USER=${db_user}
+      - MARIADB_USER=piwigodb_user
       - MARIADB_PASSWORD=${db_user_password}
-      - MARIADB_DATABASE=${db_name}
+      - MARIADB_DATABASE=piwigodb
     networks:
       - piwigo-network
     volumes:
